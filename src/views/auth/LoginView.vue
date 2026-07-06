@@ -13,10 +13,17 @@
                     <label>Email Address</label>
                     <input v-model="email" type="email" placeholder="Enter your email" required />
                 </div>
-
                 <div class="form-group">
                     <label>Password</label>
-                    <input v-model="password" type="password" placeholder="Enter your password" required />
+
+                    <div class="password-wrapper">
+                        <input v-model="password" :type="showPassword ? 'text' : 'password'"
+                            placeholder="Enter your password" required />
+
+                        <button type="button" class="toggle-password" @click="showPassword = !showPassword">
+                            <i :class="showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <button type="submit" :disabled="loading">
@@ -38,6 +45,7 @@ import { useAuthStore } from '@/stores/auth'
 
 const email = ref('')
 const password = ref('')
+const showPassword = ref(false)
 const loading = ref(false)
 const errorMessage = ref('')
 
@@ -151,5 +159,39 @@ button:disabled {
     margin-top: 1rem;
     color: #dc2626;
     font-size: 0.9rem;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 3rem;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+
+    background: transparent;
+    border: none;
+    color: #6b7280;
+
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    width: auto;
+}
+
+.toggle-password:hover {
+    background: transparent;
+    color: #14532d;
+}
+
+.toggle-password i {
+    font-size: 1rem;
 }
 </style>
